@@ -7,3 +7,6 @@ class Article(models.Model):
     content = models.TextField()
     # id
     # pk
+
+    def __str__(self):
+        return self.title

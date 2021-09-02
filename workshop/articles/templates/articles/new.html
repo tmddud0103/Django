@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+  <form action="{% url 'articles:create' %}" method="POST">
+    {% comment %} post 방식이기 때문에 토큰을 넣는 것 {% endcomment %}
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Title</label>
+      <input name='title' type="text" class="form-control" id="exampleFormControlInput1">
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">content</label>
+      <textarea name='content' class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <input type="submit" class='btn btn-primary'>
+  </form>
+{% endblock %}

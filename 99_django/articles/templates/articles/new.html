@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-<form action="{% url 'articles:create' %}">
+<form action="{% url 'articles:create' %}" method="POST">
+  {% csrf_token %}
   <input type="text" name="title">
   {% comment %} <input type="text" name="content"> {% endcomment %}
-  <textarea name="content" cols="30" rows="10"></textarea>
+  <textarea name="content" id="" cols="30" rows="10"></textarea>
   <input type="submit">
 </form>
-{% endblock %}
+{% endblock  %}
+
+

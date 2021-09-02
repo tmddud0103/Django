@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+  <div class="bg-light p-3 m-2">
+    <h1 class="text-center">{{ article.title }}</h1>
+    <p class="text-center">{{ article.content }}</p>
+
+    <p class="text-end">{{ article.created_at|date:"Y.m.d_D" }}</p>
+    <p class="text-end">{{ article.updated_at|date:"Y.m.d_D" }}</p>
+    <form action="{% url 'articles:delete' article.pk %}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value='delete'>
+    </form>
+
+    <a href="{% url 'articles:edit' article.pk %}">update</a>
+  </div>
+
+
+{% endblock %}

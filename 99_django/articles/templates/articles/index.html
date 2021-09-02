@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
-{% block content%}
+{% block content %}
   <h1>index</h1>
+  {% comment %} {%%} => 어떠한 기능이나 동작, 특수한 목적을 사용하기 위한 문법 {% endcomment %}
   {% for article in articles %}
     <a href="{% url 'articles:detail' article.pk %}"><p>{{ article.title }}</p></a>
+    {% comment %} {{}} => 화면에 출력하기 위한 문법 {% endcomment %}
     <p>{{ article.content }}</p>
     <hr>
   {% endfor %}

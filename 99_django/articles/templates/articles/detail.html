@@ -3,4 +3,12 @@
 {% block content %}
   <p>{{ article.title }}</p>
   <p>{{ article.content }}</p>
+
+  <form action="{% url 'articles:delete' article.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value='delete'>
+  </form>
+
+<a href="{% url 'articles:edit' article.pk %}">update</a>
+
 {% endblock %}
