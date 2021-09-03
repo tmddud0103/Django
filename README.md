@@ -58,7 +58,7 @@ pip install django-extensions
 
 
 
-## 실행_2
+## 실행_2_ 계속 실행해야함
 
 ```python
 python manage.py runserver
@@ -67,7 +67,7 @@ python manage.py runserver
 
 
 
-## 실행 겸 설치(migration)
+## 실행 겸 설치(migration)
 
 ```python
 class Article(models.Model):
