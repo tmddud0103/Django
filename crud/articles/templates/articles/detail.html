@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Detail</h2>
+  <hr>
+  <div class='m-3'>
+    <h2 class='mb-3'>글 번호: {{ article.pk }}</h2>
+    <h2 class='mb-3'>글 제목: {{ article.title }}</h2>
+    <h5 class='mb-3'>글 내용: {{ article.content }}</h5>
+    <p class='mb-3'>글 생성시각: {{article.created_at}}</p>
+    <p class='mb-3'>글 수정시각: {{article.updated_at}}</p>
+    <form action="{% url 'articles:update' article.pk %}" method="GET" class='d-inline'>
+      <input type="submit" class='btn btn-warning' value='EDIT'>
+    </form>
+  </div>
+  <div class='m-3'>
+    <form action="{% url 'articles:delete' article.pk %}" method="POST" class='d-inline'>
+      {% csrf_token %}
+      <input type="submit" class='btn btn-danger' value='DELETE'>
+    </form>
+  </div>
+  <hr>
+  <div class='m-3'>
+    <form action="{% url 'articles:index' %}" method="GET" class='d-inline'>
+      {% csrf_token %}
+      <input type="submit" class='btn btn-primary' value='BACK'>
+    </form>
+  </div>
+{% endblock %}

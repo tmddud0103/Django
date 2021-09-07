@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+  {% if request.resolver_match.url_name == 'create' %}
+    <h1>CREATE</h1>
+  {% elif request.resolver_match.url_name == 'update' %}
+    <h1>EDIT</h1>
+  {% endif %}
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons submit="submit" %}
+    {% endbuttons %}
+  </form>
+  
+  <form action="{% url 'articles:index' %}" method="GET" class='d-inline'>
+    {% csrf_token %}
+    <input type="submit" class='btn btn-warning' value='BACK'>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% comment %} /article/create/ {% endcomment %}
+{% block content %}
+  {% comment %} url을 만드는데 사용한 정보들을 보여주는 문법 {% endcomment %}
+  {% comment %} {{ request.resolver_match }} {% endcomment %}
+  {% if request.resolver_match.url_name == 'create' %}
+    <h1>CREATE</h1>
+  {% elif request.resolver_match.url_name == 'update' %}
+    <h1>UPDATE</h1>
+  {% endif %}
+  <div class="row"></div>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% comment %} {{ form }} {% endcomment %}
+    {% bootstrap_form form layout='horizontal' %}
+
+    {% comment %} <input type="submit"> {% endcomment %}
+    {% buttons submit="Submit" reset="Cancle" %}
+    {% endbuttons %}
+
+    {% comment %} form을 쪼개는 방법 {% endcomment %}
+    {% comment %} {% for field in form %}
+      {{ field.label_tag }}
+      {{ field }}
+    {% endfor %} {% endcomment %}
+
+  </form>
+{% endblock %}

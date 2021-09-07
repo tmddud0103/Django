@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for article in articles %}
+    <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
+    <a class= "btn btn-warning" href="{% url 'articles:update' article.pk %}">수정</a>
+    
+    <form action="{% url 'articles:delete' article.pk %}" method="POST" class='d-inline'>
+      {% csrf_token %}
+      <input type="submit" class='btn btn-danger' value='삭제'>
+    </form>
+    <hr>
+  {% endfor %}
+{% endblock %}

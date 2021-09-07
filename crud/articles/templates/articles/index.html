@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Articles</h1>
+    <div class='m-3'>
+    <form action="{% url 'articles:create' %}" method="GET" class='d-inline'>
+      {% csrf_token %}
+      <input type="submit" class='btn btn-primary' value='NEW'>
+    </form>
+  </div>
+    <hr>
+  {% for article in articles %}
+    <h1>{{ article.pk }}</h1>
+    <h1>{{ article.title }}</h1>
+    <a href="{% url 'articles:detail' article.pk %}">DETAIL</a>
+    
+    <hr>
+  {% endfor %}
+
+
+{% endblock %}
