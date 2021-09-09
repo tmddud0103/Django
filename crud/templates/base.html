@@ -6,15 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  {% bootstrap_css %}
+  {% comment %} {% bootstrap_css %} {% endcomment %}
 </head>
 <body>
   <div class="container">
-    <h1>CRUD with ModelForm</h1>
-    <hr>
     {% block content %}
     {% endblock %}
   </div>
-  {% bootstrap_javascript %}
+  {% comment %} {% bootstrap_javascript %} {% endcomment %}
 </body>
 </html>

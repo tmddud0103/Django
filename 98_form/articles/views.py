@@ -31,7 +31,7 @@ def create(request):
         #    => 데이터가 입력된 종이 생성
         # 11. ArticleForm을 인스턴스화한다. (사용자가 입력한 정보를 담아서)
         #    => 데이터가 입력된 종이 생성
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         # 7. 데이터가 유효한지 검증을 한다. (잘못된 데이터를 넣었기 때문에 실패)
         # 12. 데이터가 유요한지 검증을 한다. (올바른 데이터를 넣었기 때문에 성공)
         if form.is_valid():

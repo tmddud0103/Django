@@ -10,7 +10,7 @@
     <h1>UPDATE</h1>
   {% endif %}
   <div class="row"></div>
-  <form action="" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% comment %} {{ form }} {% endcomment %}
     {% bootstrap_form form layout='horizontal' %}

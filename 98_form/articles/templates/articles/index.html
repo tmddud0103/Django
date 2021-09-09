@@ -1,14 +1,26 @@
 {% extends 'base.html' %}
+{% load static  %}
 
 {% block content %}
-  {% for article in articles %}
-    <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
-    <a class= "btn btn-warning" href="{% url 'articles:update' article.pk %}">수정</a>
-    
-    <form action="{% url 'articles:delete' article.pk %}" method="POST" class='d-inline'>
-      {% csrf_token %}
-      <input type="submit" class='btn btn-danger' value='삭제'>
-    </form>
-    <hr>
-  {% endfor %}
+  {% comment %} <p>{% static 'images/asd.jpg' %}</p> {% endcomment %}
+  {% comment %} <img src="{% static 'images/asd.jpg' %}" alt=""> {% endcomment %}
+  {% comment %} <img src="/static/images/asd.jpg" alt=""> {% endcomment %}
+  <div class="row">
+    {% for article in articles %}
+      <div class="card col-4">
+        <img src="{{ article.image.url }}" alt="" height="130px">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
+          </h5>
+          <p class="card-text">{{ article.content }}</p>
+          <a class= "btn btn-warning" href="{% url 'articles:update' article.pk %}">수정</a>
+          <form action="{% url 'articles:delete' article.pk %}" method="POST" class='d-inline'>
+            {% csrf_token %}
+            <input type="submit" class='btn btn-danger' value='삭제'>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}

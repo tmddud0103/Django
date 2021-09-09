@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+  <h1>CREATE</h1>
+  <form action="{% url 'articles:create' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form exclude='image'%}
+    {% bootstrap_form form exclude='title, content'%}
+
+    <input type="submit" class="btn btn-primary">
+  </form>
+  <a href="{% url 'articles:index' %}">[back]</a>
+{% endblock content %}

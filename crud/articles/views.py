@@ -25,14 +25,14 @@ def detail(request, pk):
 @require_http_methods(['GET', 'POST'])
 def create(request):
     if request.method == 'POST':
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('articles:index')
+            article = form.save()
+            return redirect('articles:detail', article.pk)
     else:
         form = ArticleForm()
     context = {
-        'form' : form,
+        'form': form,
     }
     return render(request, 'articles/form.html', context)
 
