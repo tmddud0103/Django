@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <form action="{% url 'movies:create' %}" method="POST">
+    {% csrf_token %}
+    
+      <div class="mb-3 container">
+        <label for="exampleInputEmail1" class="form-label">제목(Title)</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="title">
+      </div>
+      <div class="mb-3 container">
+        <label for="exampleInputPassword1" class="form-label">Overview</label>
+        <textarea name="overview" class="form-control" id="exampleInputPassword1"></textarea>
+      </div>
+      <div class="mb-3 container">
+        <label for="exampleInputPassword1" class="form-label">URL(Poster_path)</label>
+        <input type="text" class="form-control" id="exampleInputPassword1"  name="poster_path">
+      </div>
+      <div class="text-end mx-4">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    
+    
+  </form>
+{% endblock %}

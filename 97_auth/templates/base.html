@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <a href="{% url 'articles:index' %}">home</a>
+
+  {% if request.user.is_authenticated %}
+    {% comment %} 로그인을 했다면 {% endcomment %}
+    <a href="{% url 'articles:create' %}">create</a>
+    <p>{{ request.user }}님 환영합니다.</p>
+    <form action="{% url 'accounts:logout' %}" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="logout">
+    </form>
+
+  {% else %}
+    {% comment %} 로그인을 안했다면 {% endcomment %}
+    <a href="{% url 'accounts:signup' %}">signup</a>
+    <a href="{% url 'accounts:login' %}">login</a>
+  {% endif %}
+
+  
+  {% block body %}
+  {% endblock %}
+</body>
+</html>

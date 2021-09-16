@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+  {% for user in users %}
+    <h5>{{ user }}</h5>
+    {% comment %} <a href="{% url 'articles:detail' article.pk %}">detail</a>
+    <a href="{% url 'articles:update' article.pk %}">edit</a> {% endcomment %}
+    <hr>
+  {% endfor%}
+
+{% endblock %}
