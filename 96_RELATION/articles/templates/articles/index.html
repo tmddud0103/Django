@@ -1,0 +1,6 @@
+<h1>index</h1>
+
+{% for article in articles %}
+  <p>{{ article.title }}</p>
+  <a href="{% url 'articles:detail' article.pk %}">글 보기</a>
+{% endfor %}
