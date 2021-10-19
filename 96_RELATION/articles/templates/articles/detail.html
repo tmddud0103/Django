@@ -1,17 +1,16 @@
 <h1>detail</h1>
 
-<h2>{{article.title}}</h2>
-<h5>{{article.content}}</h5>
-
-
-
+<h2>{{ article.title }}</h2>
+<h5>{{ article.content }}</h5>
+<h5>{{ article.user }}</h5>
 <hr>
+
 <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
   {% csrf_token %}
-  {{comment_form}}
+  {{ comment_form }}
   <input type="submit">
 </form>
 
-{% for comment in article.comments_set.all %}
-  <p>{{comment.content}}</p>
+{% for comment in article.comment_set.all %}
+  <p>{{ comment.user }} : {{ comment.content }}</p>
 {% endfor %}
