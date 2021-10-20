@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+  <h1>index</h1>
+  {% comment %} 현재 로그인한 사람을 쿼리셋으로 보여주고 하나씩 참조 {% endcomment %}
+  {% for article in user.article_set.all %}
+    <p>{{ article.title }}</p>
+    <p>{{ article.completed }}</p>
+    <p>{{ article.auther}}</p>
+  {% endfor %}
+{% endblock %}
