@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  {% for article in articles %}
+    <div class="col-7">
+      {% include 'articles/_card.html' %}
+    </div>
+  {% endfor %}
+{% endblock %}

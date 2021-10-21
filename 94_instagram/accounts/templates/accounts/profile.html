@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+  <div class="row mt-4">
+    <div class="col-3">
+      <img src="{{ profile_user.image.url }}" alt="" class="boarder rounded-circle">
+    </div>
+    <div class="col-9">
+      <p>{{ profile_user.username }}</p>
+      {% if user != profile_user %}
+        <form action="{% url 'accounts:follow' profile_user.pk %}" method="POST">
+          {% csrf_token %}
+          {% if user in profile_user.followers.all %}
+            <input type="submit" class="btn btn-primary" value="팔로우 취소">
+          {% else %}
+            <input type="submit" class="btn btn-primary" value="팔로우">
+          {% endif %}
+        </form>
+      {% endif %}
+      <p>게시물 : {{ profile_user.article_set.all|length }} | 팔로워 : {{ profile_user.followers.all|length }} | 팔로우 : {{ profile_user.followings.all|length }} </p>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    {% for article in profile_user.article_set.all %}
+      <div class="col-4">
+        <img src="{{ article.image.url }}" alt="" class='img-fluid'>
+      </div>
+    {% endfor %}
+  </div>
+  
+{% endblock %}
