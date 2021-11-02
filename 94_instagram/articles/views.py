@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Article, Comment
 from articles.forms import ArticleForm, CommentForm
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -41,10 +42,20 @@ def comments_create(request, pk):
 
 def likes(request, pk):
     user = request.user
-    article = get_object_or_404(Article, pk=pk)
-    if user in article.like_users.all():
-        article.like_users.remove(user)
-    else:
-        article.like_users.add(user)
-        # user.like_articles.add(article)
+    if user.is_authenticated:
+        article = get_object_or_404(Article, pk=pk)
+        if user in article.like_users.all():
+            article.like_users.remove(user)
+            liked = False
+        else:
+            article.like_users.add(user)
+            # user.like_articles.add(article)
+            liked = True
+        context = {
+            'liked' : liked,
+            'count' : article.like_users.count(),
+        }
+        # return redirect('articles:index')
+        return JsonResponse(context)
+
     return redirect('articles:index')

@@ -9,16 +9,16 @@
     <div class="col-9">
       <p>{{ profile_user.username }}</p>
       {% if user != profile_user %}
-        <form action="{% url 'accounts:follow' profile_user.pk %}" method="POST">
+        <form data-user-id="{{ profile_user.pk }}" action="{% url 'accounts:follow' profile_user.pk %}" method="POST" id="follow-form">
           {% csrf_token %}
           {% if user in profile_user.followers.all %}
-            <input type="submit" class="btn btn-primary" value="팔로우 취소">
+            <input id="follow-btn" type="submit" class="btn btn-primary" value="팔로우 취소">
           {% else %}
-            <input type="submit" class="btn btn-primary" value="팔로우">
+            <input id="follow-btn" type="submit" class="btn btn-primary" value="팔로우">
           {% endif %}
         </form>
       {% endif %}
-      <p>게시물 : {{ profile_user.article_set.all|length }} | 팔로워 : {{ profile_user.followers.all|length }} | 팔로우 : {{ profile_user.followings.all|length }} </p>
+      <p>게시물 : {{ profile_user.article_set.all|length }} | 팔로워 : <span id="follow-count">{{ profile_user.followers.all|length }}</span> | 팔로우 : {{ profile_user.followings.all|length }} </p>
     </div>
   </div>
   <hr>
@@ -29,5 +29,36 @@
       </div>
     {% endfor %}
   </div>
-  
 {% endblock %}
+
+{% block script %}
+  <script>
+    const form = document.querySelector('#follow-form')
+    form.addEventListener('submit', function (event) {
+      event.preventDefault()
+
+      const userId = event.target.dataset.userId
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+      axios({
+        method: 'post',
+        url: `/accounts/${userId}/follow/`,
+        headers: {'X-CSRFToken':csrftoken},
+      })
+        .then(function (res) {
+          const isFollowed = res.data.isFollowed
+          const followBtn = document.querySelector('#follow-btn')
+          const followCount = document.querySelector('#follow-count')
+
+          followCount.innerText = `${res.data.follower_count}`
+
+          if (isFollowed == true) {
+            followBtn.value = '팔로우 취소'
+          } else {
+            followBtn.value = '팔로우'
+          }
+        })
+
+    })
+  </script>
+{% endblock script %}

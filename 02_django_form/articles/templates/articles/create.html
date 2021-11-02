@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>CREATE</h1>
+  <form action="{% url 'articles:create' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit">
+  </form>
+
+  <hr>
+
+  <h2>Rendering fields manually</h2>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div>
+      {{ form.title.errors }}
+      {{ form.title.label_tag }}
+      {{ form.title }}
+    </div>
+    <div>
+      {{ form.content.errors }}
+      {{ form.content.label_tag }}
+      {{ form.content }}
+    </div>
+    <button>작성</button>
+  </form>
+  <hr>
+
+  <h2>Looping over the form’s fields</h2>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+      {% if field.errors %}
+        {% for error in field.errors %}
+          <div class="alert alert-danger" role="alert">{{ error|escape }} </div>
+        {% endfor %}
+      {% endif %}
+      {{ field.label_tag }} {{ field }}
+    {% endfor %}
+    <button>작성</button>
+  </form>
+
+  <a href="{% url 'articles:index' %}">[back]</a>
+{% endblock  %}

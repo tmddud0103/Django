@@ -7,3 +7,42 @@
     </div>
   {% endfor %}
 {% endblock %}
+
+{% block script %}
+    <script>
+      const forms = document.querySelectorAll('.like-form')
+      forms.forEach((form) => {
+        form.addEventListener('submit', (event) => {
+          event.preventDefault()
+          
+          const articlePk = event.target.dataset.articlePk
+          const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value
+          axios.post(`/articles/${articlePk}/likes/`, {}, {
+            headers: { 'X-CSRFToken': csrfToken } 
+          })
+            .then((res) => {
+              // const liked = res.data.liked
+              // const count = res.data.count
+              const {liked, count} = res.data
+
+              const likeBtn = document.querySelector(`#like-btn-${articlePk}`)
+              const likeITag = likeBtn.querySelector("i")
+              // const likeBtn = event.target.querySelector('button')
+              const likeCount = document.querySelector(`#like-count-${articlePk}`)
+              console.log(likeITag)
+              
+              if (liked) {
+                // document.querySelector(`#like-btn-${articlePk}`).ii = "fas fa-heart"
+                likeITag.style.color = 'red'
+                likeITag.class="fas fa-heart"
+              } else {
+                // likeBtn.innerText = '<i class="fas fa-heart" style="color: red"></i>'
+                likeITag.style.color = 'black'
+                likeITag.class="far fa-heart"
+              }
+              likeCount.innerText = count
+            })
+        })
+      })
+    </script>
+{% endblock script%}

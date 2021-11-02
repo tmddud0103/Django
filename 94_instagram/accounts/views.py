@@ -3,7 +3,7 @@ from .forms import CustonUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import get_user_model
-
+from django.http import JsonResponse
 
 # Create your views here.
 def signup(request):
@@ -53,10 +53,18 @@ def follow(request, pk):
     me = request.user
     # you = 내가 프로필 페이지를 보고 있는 사람, 팔로우 할 사람
     you = get_object_or_404(User, pk=pk)
-
-    if me in you.followers.all():
-        me.followings.remove(you)
-    else:
-        # you.followers.add(me)
-        me.followings.add(you)
+    if me != you:
+        if me in you.followers.all():
+            me.followings.remove(you)
+            is_followed = False
+        else:
+            # you.followers.add(me)
+            me.followings.add(you)
+            is_followed = True
+        context = {
+                'isFollowed' : is_followed,
+                'follower_count' : you.followers.count(),
+                'followings_count': you.followings.count(),
+            }
+        return JsonResponse(context)
     return redirect('accounts:profile', you.username)
